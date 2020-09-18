@@ -1,40 +1,41 @@
 <?php
-require_once ('vendor/autoload.php');
+require_once 'vendor/autoload.php';
+use App\Models\{Job,Project};
+use Illuminate\Database\Capsule\Manager as Capsule;
 
-use App\Models\{Job,Project,Printable};
-$job1 = new Job('PHP Developer', 'This is an awesome job!!');
-$job1->months=32;
+$capsule = new Capsule;
 
-$job2 = new Job('Frontend Dev', 'This is an awesome job!!');
-$job2->months=16;
+$capsule->addConnection([
+    'driver'    => 'mysql',
+    'host'      => 'localhost',
+    'database'  => 'curso_php',
+    'username'  => 'root',
+    'password'  => '',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+]);
 
-$job3 = new Job('DevOps', 'This is an awesome job!!');
-$job3->months=19;
+// Make this Capsule instance available globally via static methods... (optional)
+$capsule->setAsGlobal();
 
-$project1 = new Project('Project1', 'description');
+// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+$capsule->bootEloquent();
 
-$jobs=[
-	$job1,
-  $job2,
-  $job3
-];
+$jobs=Job::all();
 
-$projects=[
-  $project1
-];
-
-
+$projects=Project::all();
 
   function getDuration($months){
     $years=floor($months/12);
     $extraMonths= $months%12;
     return "$years years $extraMonths months";
   }
-  function printElement(Printable $job){
+  function printElement($jobs){
     echo '<li class="work-position">';
-    echo '<h5>' . $job->getTitle() . '</h5>';
-    echo '<p>' . $job->getDescription() . '</p>';
-    echo '<p>' . $job->getDurationAsString() . '</p>';
+    echo '<h5>' . $jobs->title . '</h5>';
+    echo '<p>' . $jobs->description . '</p>';
+    //echo '<p>' . $jobs->getDurationAsString() . '</p>';
     echo '<strong>Achievements:</strong>';
     echo '<ul>
       <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>

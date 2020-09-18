@@ -1,6 +1,7 @@
 <?php
-  $name="Anibal Tuyuc";
-  require('jobs.php');
+$name="Anibal Tuyuc";
+require_once 'jobs.php';
+
 ?>
 
 <!doctype html>

@@ -16,11 +16,11 @@ class BaseElement implements Printable{
 	public function getTitle(){
 		return $this->title;
 	}
-	public function getDurationAsString(){
-    $years=floor($this->months/12);
-    $extraMonths= $this->months%12;
-    return "$years years $extraMonths months";
-  }
+	//public function getDurationAsString(){
+    //$years=floor($this->months/12);
+    //$extraMonths= $this->months%12;
+    //return "$years years $extraMonths months";
+  //}
   
 
   public function getDescription(){
